@@ -1,7 +1,3 @@
-const render = (container, template, place) => {
-    container.insertAdjacentHTML(place, template);
-};
-
 import {getInfoMarkup} from "./components/trip-info.js";
 import {getSwitchViewMarkup} from "./components/switch-view.js";
 import {getFilterEventsMarkup} from "./components/filter-events.js";
@@ -12,6 +8,10 @@ import {getEventMarkup} from "./components/event.js";
 import {getNewEventMarkup} from "./components/new-event.js";
 import {getEventCardMarkup} from "./components/event-card.js";
 import {getEmptyListMarkup} from "./components/empty-list.js";
+
+const render = (container, template, place) => {
+  container.insertAdjacentHTML(place, template);
+};
 
 const infoContainer = document.querySelector(`.trip-info`);
 const switchContainer = document.querySelector(`div.trip-main__trip-controls h2`);
