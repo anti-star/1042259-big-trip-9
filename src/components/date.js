@@ -1,9 +1,11 @@
-export const getDateMarkup = () => {
-  return `<li class="trip-days__item  day">
-    <div class="day__info">
-      <span class="day__counter">1</span>
-      <time class="day__date" datetime="2019-03-18">MAR 18</time>
-    </div>
-    <ul class="trip-events__list"></ul>
-    </li>`;
+import {formatDate} from "./data.js";
+
+export const createDateTemplate = (array) => {
+  return array.map((dayItem) => `<li class="trip-days__item  day">
+  <div class="day__info">
+    <span class="day__counter">${formatDate(dayItem, `DAY`)}</span>
+    <time class="day__date" datetime="${formatDate(dayItem, `YEAR\-\MONTH\-\DAY`)}">${formatDate(dayItem, `NAME YEAR`)}</time>
+  </div>
+  <ul class="trip-events__list"></ul>
+  </li>`).join(``);
 };
