@@ -1,7 +1,9 @@
-import {formatDate} from "./data.js";
-import {cities} from "./data.js";
-import {insertPreposition} from "./data.js";
-import {offers} from "./data.js";
+import {formatDate} from "../data.js";
+import {cities} from "../data.js";
+import {getDestinationTitle} from "../data.js";
+import {offers} from "../data.js";
+import {typeTitles} from "../data.js";
+import {formatTitle} from "../data.js";
 
 export const createEventEditTemplate = (event) => {
   return `<form class="event  event--edit" action="#" method="post">
@@ -16,17 +18,17 @@ export const createEventEditTemplate = (event) => {
         <div class="event__type-list">
           <fieldset class="event__type-group">
             <legend class="visually-hidden">Transfer</legend>
-            ${[`taxi`, `bus`, `train`, `ship`, `transport`, `drive`, `flight`].map((name) => `<div class="event__type-item">
+            ${(typeTitles.moving).map((name) => `<div class="event__type-item">
             <input id="event-type-${name}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${name}">
-            <label class="event__type-label  event__type-label--${name}" for="event-type-${name}-1">${name.replace(name[0], name[0].toUpperCase())}</label>
+            <label class="event__type-label  event__type-label--${name}" for="event-type-${name}-1">${formatTitle(name)}</label>
           </div>`).join(``)}
 
           </fieldset>
           <fieldset class="event__type-group">
             <legend class="visually-hidden">Activity</legend>
-            ${[`check-in`, `sightseeing`, `restaurant`].map((name) => `<div class="event__type-item">
+            ${(typeTitles.arrival).map((name) => `<div class="event__type-item">
             <input id="event-type-${name}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${name}">
-            <label class="event__type-label  event__type-label--${name}" for="event-type-${name}-1">${name.replace(name[0], name[0].toUpperCase())}</label>
+            <label class="event__type-label  event__type-label--${name}" for="event-type-${name}-1">${formatTitle(name)}</label>
           </div>`).join(``)}
 
           </fieldset>
@@ -35,7 +37,7 @@ export const createEventEditTemplate = (event) => {
 
       <div class="event__field-group  event__field-group--destination">
         <label class="event__label  event__type-output" for="event-destination-1">
-          ${insertPreposition(event)}
+          ${getDestinationTitle(event)}
         </label>
         <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${event.destination}" list="destination-list-1">
         <datalist id="destination-list-1">

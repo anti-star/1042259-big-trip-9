@@ -20,13 +20,6 @@ const getRandomBoolean = () => {
   return Boolean(getRandomNumber(0, 1));
 };
 
-export const cities = [`Amsterdam`, `Chamonix`, `Geneva`, `Rome`, `London`];
-export const getRandomCity = getRandomArrayElement(cities);
-
-/*
-const getRandomPlace = getRandomArrayElement([`Rialto Bridge`, `Trevi Fountain`, `Tower of Belem`, `Big Ben`, `Marienplatz`]);
-*/
-
 export const formatDate = (time, format) => {
   const eventDate = new Date(time);
   const monthNames = [
@@ -60,24 +53,18 @@ export const formatDate = (time, format) => {
 export const getDuration = (time) => {
   const eventStart = new Date(time.start);
   const eventEnd = new Date(time.end);
+  const duration = eventEnd - eventStart;
   if (eventEnd.getDate() > eventStart.getDate()) {
-    return formatDate((eventEnd - eventStart), `DAY\D\ HOUR\H\ MINUTE\M`);
+    return formatDate(duration, `DAY\D\ HOUR\H\ MINUTE\M`);
   } else if (eventEnd.getHours() > eventStart.getHours()) {
-    return formatDate((eventEnd - eventStart), `HOUR\H\ MINUTE\M`);
+    return formatDate(duration, `HOUR\H\ MINUTE\M`);
   } else {
-    return formatDate((eventEnd - eventStart), `MINUTE\M`);
+    return formatDate(duration, `MINUTE\M`);
   }
 };
 
-export const insertPreposition = (event) => {
-  const formatTitle = (string) => {
-    return string.replace(string[0], string[0].toUpperCase());
-  };
-  if (event.type.title === `taxi` || event.type.title === `bus` || event.type.title === `drive` || event.type.title === `flight` || event.type.title === `ship` || event.type.title === `train` || event.type.title === `trip`) {
-    return formatTitle(event.type.title) + ` to `;
-  } else {
-    return formatTitle(event.type.title) + ` in `;
-  }
+export const formatTitle = (string) => {
+  return string.replace(string[0], string[0].toUpperCase());
 };
 
 export const getOffersChecked = (array) => {
@@ -85,6 +72,13 @@ export const getOffersChecked = (array) => {
   return shuffleArray(offersChecked, 0, 2);
 };
 
+export const cities = [`Amsterdam`, `Chamonix`, `Geneva`, `Rome`, `London`];
+export const getRandomCity = getRandomArrayElement(cities);
+
+export const typeTitles = {
+  moving: [`taxi`, `bus`, `train`, `ship`, `transport`, `drive`, `flight`],
+  arrival: [`check-in`, `sightseeing`, `restaurant`],
+};
 
 export const offers = [
   {
@@ -108,6 +102,13 @@ export const offers = [
     price: 9,
   },
 ];
+
+export const getDestinationTitle = (event) => {
+  if (typeTitles.moving.includes(event.type.title)) {
+    return formatTitle(event.type.title) + ` to `;
+  }
+    return formatTitle(event.type.title) + ` in `;
+};
 
 const getPhotos = (count) => {
   return new Array(count).fill(``).map(() => `http://picsum.photos/300/150?r=` + Math.random());
@@ -202,19 +203,10 @@ const getEventRandom = () => ({
   isFavorite: getRandomBoolean(),
 });
 
-export const getEventArray = (count) => {
-  const eventsDefault = new Array(count).fill(``).map(getEventRandom);
-  const eventsSorted = eventsDefault.sort((a, b) => {
-    if (a.time.start > b.time.start) {
-      return 1;
-    }
-    if (a.time.start < b.time.start) {
-      return -1;
-    }
-    return 0;
-  });
-  return eventsSorted;
-};
+export const getEventArray = (count) => new Array(count)
+  .fill(``)
+  .map(getEventRandom)
+  .sort((a, b) => a.time.start - b.time.start)
 
 export const getDaysTrip = (eventsList) => {
   const datesEventStart = eventsList.map((eventItem) => eventItem.time.start);

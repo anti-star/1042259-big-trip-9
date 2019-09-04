@@ -1,6 +1,6 @@
-import {formatDate} from "./data.js";
-import {insertPreposition} from "./data.js";
-import {getDuration} from "./data.js";
+import {formatDate} from "../data.js";
+import {getDestinationTitle} from "../data.js";
+import {getDuration} from "../data.js";
 
 export const createEventTemplate = (event) => {
   return `<li class="trip-events__item">
@@ -8,7 +8,7 @@ export const createEventTemplate = (event) => {
       <div class="event__type">
         <img class="event__type-icon" width="42" height="42" src="${event.type.icon}" alt="Event type icon">
       </div>
-      <h3 class="event__title">${insertPreposition(event) + event.destination}</h3>
+      <h3 class="event__title">${getDestinationTitle(event) + event.destination}</h3>
 
       <div class="event__schedule">
         <p class="event__time">
@@ -31,7 +31,7 @@ export const createEventTemplate = (event) => {
           &plus;
           &euro;&nbsp;<span class="event__offer-price">${offer.price}</span>
         </li>`).join(``)}
-        
+
         </ul>
       <button class="event__rollup-btn" type="button">
         <span class="visually-hidden">Open event</span>

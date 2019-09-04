@@ -6,10 +6,10 @@ import {createDateListTemplate} from "./components/date-list.js";
 import {createDateTemplate} from "./components/date.js";
 import {createEventTemplate} from "./components/event.js";
 import {createEventEditTemplate} from "./components/event-card.js";
-import {getEventArray} from "./components/data.js";
-import {getFilters} from "./components/data.js";
-import {getDaysTrip} from "./components/data.js";
-import {formatDate} from "./components/data.js";
+import {getEventArray} from "./data.js";
+import {getFilters} from "./data.js";
+import {getDaysTrip} from "./data.js";
+import {formatDate} from "./data.js";
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
