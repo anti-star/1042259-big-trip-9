@@ -1,4 +1,4 @@
-const getRandomNumber = (min, max) => {
+export const getRandomNumber = (min, max) => {
   return Math.round(Math.random() * (max - min) + min);
 };
 
@@ -110,10 +110,6 @@ export const getDestinationTitle = (event) => {
     return formatTitle(event.type.title) + ` in `;
 };
 
-const getPhotos = (count) => {
-  return new Array(count).fill(``).map(() => `http://picsum.photos/300/150?r=` + Math.random());
-};
-
 const getEventRandom = () => ({
   type: getRandomArrayElement([
     {
@@ -199,8 +195,7 @@ const getEventRandom = () => ({
     `Nunc fermentum tortor ac porta dapibus. `,
     `In rutrum ac purus sit amet tempus. `,
   ], 1, 3),
-  photo: getPhotos(getRandomNumber(1, 3)),
-  isFavorite: getRandomBoolean(),
+  favorite: getRandomBoolean(),
 });
 
 export const getEventArray = (count) => new Array(count)
@@ -226,6 +221,9 @@ export const getDaysTrip = (eventsList) => {
   return getUniqueDays();
 };
 
+export const isFavorite = (event) => {
+  return event.favorite === true;
+};
 
 const isFuture = (event) => {
   return event.time.start > Date.now();

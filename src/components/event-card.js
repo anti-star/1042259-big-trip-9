@@ -4,6 +4,8 @@ import {getDestinationTitle} from "../data.js";
 import {offers} from "../data.js";
 import {typeTitles} from "../data.js";
 import {formatTitle} from "../data.js";
+import {isFavorite} from "../data.js";
+import {getRandomNumber} from "../data.js";
 
 export const createEventEditTemplate = (event) => {
   return `<form class="event  event--edit" action="#" method="post">
@@ -68,7 +70,7 @@ export const createEventEditTemplate = (event) => {
       <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
       <button class="event__reset-btn" type="reset">Delete</button>
 
-      <input id="event-favorite-1" class="event__favorite-checkbox  visually-hidden" type="checkbox" name="event-favorite" ${event.isFavorite ? `checked` : ``}>
+      <input id="event-favorite-1" class="event__favorite-checkbox  visually-hidden" type="checkbox" name="event-favorite" ${isFavorite(event) ? `checked` : ``}>
       <label class="event__favorite-btn" for="event-favorite-1">
         <span class="visually-hidden">Add to favorite</span>
         <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
@@ -104,7 +106,7 @@ export const createEventEditTemplate = (event) => {
 
         <div class="event__photos-container">
           <div class="event__photos-tape">
-          ${(event.photo).map((photo) => `<img class="event__photo" src="${photo} alt="Event photo"></img>`).join(``)}
+          ${new Array(getRandomNumber(5, 7)).fill(``).map(() => `<img class="event__photo" src="${`http://picsum.photos/300/150?r=` + Math.random()} alt="Event photo"></img>`).join(``)}
           </div>
         </div>
       </section>
