@@ -1,6 +1,4 @@
-import {formatDate} from "../data";
-import {getDestinationTitle} from "../data";
-import {getDuration} from "../data";
+import {formatDate, getDestinationTitle, getDuration} from "../data";
 
 export const createEventTemplate = (event) => {
   return `<li class="trip-events__item">

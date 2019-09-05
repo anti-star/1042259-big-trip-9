@@ -6,10 +6,7 @@ import {createDateListTemplate} from "./components/date-list";
 import {createDateTemplate} from "./components/date";
 import {createEventTemplate} from "./components/event";
 import {createEventEditTemplate} from "./components/event-card";
-import {getEventArray} from "./data";
-import {getFilters} from "./data";
-import {getDaysTrip} from "./data";
-import {formatDate} from "./data";
+import {getEventArray, getFilters, getDaysTrip, formatDate} from "./data";
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
