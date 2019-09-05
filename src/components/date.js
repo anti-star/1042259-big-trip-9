@@ -1,4 +1,4 @@
-import {formatDate} from "../data.js";
+import {formatDate} from "../data";
 
 export const createDateTemplate = (array) => {
   return array.map((dayItem) => `<li class="trip-days__item  day">

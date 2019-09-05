@@ -1,15 +1,15 @@
-import {createInfoTemplate} from "./components/trip-info.js";
-import {createSwitchTemplate} from "./components/switch-view.js";
-import {createFilterTemplate} from "./components/filter-events.js";
-import {createSortTripTemplate} from "./components/trip-sorting.js";
-import {createDateListTemplate} from "./components/date-list.js";
-import {createDateTemplate} from "./components/date.js";
-import {createEventTemplate} from "./components/event.js";
-import {createEventEditTemplate} from "./components/event-card.js";
-import {getEventArray} from "./data.js";
-import {getFilters} from "./data.js";
-import {getDaysTrip} from "./data.js";
-import {formatDate} from "./data.js";
+import {createInfoTemplate} from "./components/trip-info";
+import {createSwitchTemplate} from "./components/switch-view";
+import {createFilterTemplate} from "./components/filter-events";
+import {createSortTripTemplate} from "./components/trip-sorting";
+import {createDateListTemplate} from "./components/date-list";
+import {createDateTemplate} from "./components/date";
+import {createEventTemplate} from "./components/event";
+import {createEventEditTemplate} from "./components/event-card";
+import {getEventArray} from "./data";
+import {getFilters} from "./data";
+import {getDaysTrip} from "./data";
+import {formatDate} from "./data";
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);

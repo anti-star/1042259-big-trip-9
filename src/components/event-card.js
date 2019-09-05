@@ -1,11 +1,11 @@
-import {formatDate} from "../data.js";
-import {cities} from "../data.js";
-import {getDestinationTitle} from "../data.js";
-import {offers} from "../data.js";
-import {typeTitles} from "../data.js";
-import {formatTitle} from "../data.js";
-import {isFavorite} from "../data.js";
-import {getRandomNumber} from "../data.js";
+import {formatDate} from "../data";
+import {cities} from "../data";
+import {getDestinationTitle} from "../data";
+import {offers} from "../data";
+import {TypeTitle} from "../data";
+import {formatTitle} from "../data";
+import {isFavorite} from "../data";
+import {getRandomNumber} from "../data";
 
 export const createEventEditTemplate = (event) => {
   return `<form class="event  event--edit" action="#" method="post">
@@ -20,7 +20,7 @@ export const createEventEditTemplate = (event) => {
         <div class="event__type-list">
           <fieldset class="event__type-group">
             <legend class="visually-hidden">Transfer</legend>
-            ${(typeTitles.moving).map((name) => `<div class="event__type-item">
+            ${(TypeTitle.moving).map((name) => `<div class="event__type-item">
             <input id="event-type-${name}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${name}">
             <label class="event__type-label  event__type-label--${name}" for="event-type-${name}-1">${formatTitle(name)}</label>
           </div>`).join(``)}
@@ -28,7 +28,7 @@ export const createEventEditTemplate = (event) => {
           </fieldset>
           <fieldset class="event__type-group">
             <legend class="visually-hidden">Activity</legend>
-            ${(typeTitles.arrival).map((name) => `<div class="event__type-item">
+            ${(TypeTitle.arrival).map((name) => `<div class="event__type-item">
             <input id="event-type-${name}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${name}">
             <label class="event__type-label  event__type-label--${name}" for="event-type-${name}-1">${formatTitle(name)}</label>
           </div>`).join(``)}

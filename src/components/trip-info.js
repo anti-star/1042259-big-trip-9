@@ -1,4 +1,4 @@
-import {formatDate} from "../data.js";
+import {formatDate} from "../data";
 
 export const createInfoTemplate = (events, eventsDestination) => {
   return `<div class="trip-info__main">

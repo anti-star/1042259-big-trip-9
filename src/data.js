@@ -75,7 +75,7 @@ export const getOffersChecked = (array) => {
 export const cities = [`Amsterdam`, `Chamonix`, `Geneva`, `Rome`, `London`];
 export const getRandomCity = getRandomArrayElement(cities);
 
-export const typeTitles = {
+export const TypeTitle = {
   moving: [`taxi`, `bus`, `train`, `ship`, `transport`, `drive`, `flight`],
   arrival: [`check-in`, `sightseeing`, `restaurant`],
 };
@@ -104,7 +104,7 @@ export const offers = [
 ];
 
 export const getDestinationTitle = (event) => {
-  if (typeTitles.moving.includes(event.type.title)) {
+  if (TypeTitle.moving.includes(event.type.title)) {
     return formatTitle(event.type.title) + ` to `;
   }
     return formatTitle(event.type.title) + ` in `;
