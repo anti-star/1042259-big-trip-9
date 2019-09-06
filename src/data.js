@@ -1,8 +1,31 @@
-export const cities = [`Amsterdam`, `Chamonix`, `Geneva`, `Rome`, `London`];
+export const CITIES = [`Amsterdam`, `Chamonix`, `Geneva`, `Rome`, `London`];
 export const TypeTitle = {
   MOVINGS: [`taxi`, `bus`, `train`, `ship`, `transport`, `drive`, `flight`],
   ARRIVALS: [`check-in`, `sightseeing`, `restaurant`],
 };
+
+export const OFFERS = [
+  {
+    name: `luggage`,
+    title: `Add luggage`,
+    price: 10,
+  },
+  {
+    name: `comfort`,
+    title: `Switch to comfort class`,
+    price: 150,
+  },
+  {
+    name: `meal`,
+    title: `Add meal`,
+    price: 2,
+  },
+  {
+    name: `seats`,
+    title: `Choose seats`,
+    price: 9,
+  },
+];
 
 export const getRandomNumber = (min, max) => {
   return Math.round(Math.random() * (max - min) + min);
@@ -78,37 +101,18 @@ export const getOffersChecked = (array) => {
   return shuffleArray(offersChecked, 0, 2);
 };
 
-export const getRandomCity = getRandomArrayElement(cities);
-
-
-export const offers = [
-  {
-    name: `luggage`,
-    title: `Add luggage`,
-    price: 10,
-  },
-  {
-    name: `comfort`,
-    title: `Switch to comfort class`,
-    price: 150,
-  },
-  {
-    name: `meal`,
-    title: `Add meal`,
-    price: 2,
-  },
-  {
-    name: `seats`,
-    title: `Choose seats`,
-    price: 9,
-  },
-];
+export const getRandomCity = getRandomArrayElement(CITIES);
 
 export const getDestinationTitle = (event) => {
   if (TypeTitle.MOVINGS.includes(event.type.title)) {
     return formatTitle(event.type.title) + ` to `;
   }
     return formatTitle(event.type.title) + ` in `;
+};
+
+const getRandomPhoto = () => {
+  const count = getRandomNumber(5, 8);
+  return new Array(count).fill(``).map(() => `http://picsum.photos/300/150?r=${Math.random()}`);
 };
 
 const getEventRandom = () => ({
@@ -150,7 +154,7 @@ const getEventRandom = () => ({
       icon: `/img/icons/train.png`,
     },
   ]),
-  destination: getRandomArrayElement(cities),
+  destination: getRandomArrayElement(CITIES),
   date: Date.now(),
   time: {
     start: Date.now() + getRandomNumber(1, 2) * 24 * 60 * 60 * 1000 + getRandomNumber(0, 5) * 60 * 60 * 1000,
@@ -197,6 +201,7 @@ const getEventRandom = () => ({
     `In rutrum ac purus sit amet tempus. `,
   ], 1, 3),
   favorite: getRandomBoolean(),
+  photo: getRandomPhoto(),
 });
 
 export const getEventArray = (count) => new Array(count)

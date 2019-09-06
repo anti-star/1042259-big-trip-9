@@ -1,4 +1,4 @@
-import {cities, offers, formatDate, getDestinationTitle, TypeTitle, formatTitle, isFavorite, getRandomNumber} from "../data";
+import {CITIES, OFFERS, formatDate, getDestinationTitle, TypeTitle, formatTitle, isFavorite} from "../data";
 
 export const createEventEditTemplate = (event) => {
   return `<form class="event  event--edit" action="#" method="post">
@@ -36,7 +36,7 @@ export const createEventEditTemplate = (event) => {
         </label>
         <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${event.destination}" list="destination-list-1">
         <datalist id="destination-list-1">
-        ${cities.map((item) => `<option value="${item}"></option>)`).join(``)}
+        ${CITIES.map((item) => `<option value="${item}"></option>)`).join(``)}
         </datalist>
       </div>
 
@@ -82,7 +82,7 @@ export const createEventEditTemplate = (event) => {
         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
         <div class="event__available-offers">
-        ${offers.map((item) => `<div class="event__offer-selector">
+        ${OFFERS.map((item) => `<div class="event__offer-selector">
           <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-${item.name}" ${(event.offer).some((offer) => offer.name === item.name) ? `checked` : ``}>
           <label class="event__offer-label" for="event-offer-${item.name}"-1">
           <span class="event__offer-title">${item.title}"</span>
@@ -99,7 +99,7 @@ export const createEventEditTemplate = (event) => {
 
         <div class="event__photos-container">
           <div class="event__photos-tape">
-          ${new Array(getRandomNumber(5, 7)).fill(``).map(() => `<img class="event__photo" src="${`http://picsum.photos/300/150?r=` + Math.random()} alt="Event photo"></img>`).join(``)}
+          ${event.photo.map((photo) => `<img class="event__photo" src="${photo}" alt="Event photo"></img>`).join(``)}
           </div>
         </div>
       </section>
