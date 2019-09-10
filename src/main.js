@@ -6,13 +6,9 @@ import DateList from "./components/date-list";
 import Date from "./components/date";
 import Event from "./components/event";
 import EventEdit from "./components/event-card";
+import DateListEmpty from "./components/date-list-empty"
 import {getEventArray, getFilters, getDaysTrip, formatDate} from "./data";
 import {Position, render, unrender} from "./utils";
-
-
-const renderComp = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
-};
 
 const infoContainer = document.querySelector(`.trip-info`);
 const switchContainer = document.querySelector(`div.trip-main__trip-controls h2`);
@@ -23,28 +19,23 @@ const EVENT_COUNT = 4;
 
 const eventMocks = getEventArray(EVENT_COUNT);
 
-const eventsDestination = eventMocks.map((event) => event.destination);
 const filterMocks = getFilters(eventMocks);
 
-const reducer = (accumulator, currentValue) => accumulator + currentValue;
-const eventsPrice = eventMocks.map((event) => {
-  const offerEvent = (event.offer).map((offer) => offer.price);
-  if (offerEvent.length > 0) {
-    const offerCost = offerEvent.reduce(reducer);
-    return Math.round(event.price + offerCost);
-  } else {
-    return Math.round(event.price);
-  }
-});
-const totalPrice = eventsPrice.reduce(reducer);
-const priceTotalContainer = document.querySelector(`.trip-info__cost-value`);
-priceTotalContainer.innerHTML = totalPrice;
-
-const tripInfo = new TripInfo(eventMocks, eventsDestination);
-render(infoContainer, tripInfo.getElement(), Position.AFTERBEGIN);
-
-const sortTrip = new SortTrip;
-render(tripContainer, sortTrip.getElement(), Position.BEFOREEND);
+const getTotalPrice = (events) => {
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  const eventsPrice = events.map((event) => {
+    const offerEvent = (event.offer).map((offer) => offer.price);
+    if (offerEvent.length > 0) {
+      const offerCost = offerEvent.reduce(reducer);
+      return Math.round(event.price + offerCost);
+    } else {
+      return Math.round(event.price);
+    }
+  });
+  const totalPrice = eventsPrice.reduce(reducer);
+  const priceTotalContainer = document.querySelector(`.trip-info__cost-value`);
+  priceTotalContainer.innerHTML = totalPrice;
+};
 
 const filters = new Filter(filterMocks);
 render(filterContainer, filters.getElement(), Position.BEFOREEND);
@@ -52,8 +43,23 @@ render(filterContainer, filters.getElement(), Position.BEFOREEND);
 const switchView = new Switch;
 render(switchContainer, switchView.getElement(), Position.AFTEREND);
 
-const dateList = new DateList();
-render(tripContainer, dateList.getElement(), Position.BEFOREEND);
+
+if (EVENT_COUNT === 0) {
+  const dateListEmpty = new DateListEmpty;
+  render(tripContainer, dateListEmpty.getElement(), Position.BEFOREEND);
+} else {
+  const dateList = new DateList();
+  render(tripContainer, dateList.getElement(), Position.BEFOREEND);
+
+  const sortTrip = new SortTrip;
+  render(tripContainer, sortTrip.getElement(), Position.AFTERBEGIN);
+
+  const eventsDestination = eventMocks.map((event) => event.destination);
+  const tripInfo = new TripInfo(eventMocks, eventsDestination);
+  render(infoContainer, tripInfo.getElement(), Position.AFTERBEGIN);
+
+  getTotalPrice(eventMocks);
+};
 
 const dateContainer = document.querySelector(`.trip-days`);
 
@@ -111,3 +117,4 @@ Array.from(daysContainer).map((dayItem) => {
 
   eventMocks.filter(getEventsOfDay).forEach(renderEvent);
   });
+
