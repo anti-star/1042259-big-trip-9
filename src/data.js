@@ -74,6 +74,7 @@ export const formatDate = (time, format) => {
   .replace(`MONTH`, (month = month < 10 ? `0` + month : month))
   .replace(`NAME`, monthNames[eventDate.getMonth()])
   .replace(`YEAR`, eventDate.getFullYear().toString().substr(-2))
+  .replace(`YFULL`, eventDate.getFullYear().toString())
   .replace(`HOUR`, hour)
   .replace(`MINUTE`, minute);
   return formatedDate;
@@ -103,11 +104,11 @@ export const getOffersChecked = (array) => {
 
 export const getRandomCity = getRandomArrayElement(CITIES);
 
-export const getDestinationTitle = (event) => {
-  if (TypeTitle.MOVINGS.includes(event.type.title)) {
-    return formatTitle(event.type.title) + ` to `;
+export const getDestinationTitle = (typeEvent) => {
+  if (TypeTitle.MOVINGS.includes(typeEvent)) {
+    return formatTitle(typeEvent) + ` to `;
   }
-    return formatTitle(event.type.title) + ` in `;
+    return formatTitle(typeEvent) + ` in `;
 };
 
 const getRandomPhoto = () => {
@@ -155,7 +156,6 @@ const getEventRandom = () => ({
     },
   ]),
   destination: getRandomArrayElement(CITIES),
-  date: Date.now(),
   time: {
     start: Date.now() + getRandomNumber(1, 2) * 24 * 60 * 60 * 1000 + getRandomNumber(0, 5) * 60 * 60 * 1000,
     end: Date.now() + getRandomNumber(2, 3) * 24 * 60 * 60 * 1000 + getRandomNumber(1, 5) * 60 * 60 * 1000 + getRandomNumber(10, 20) * 60 * 1000,
@@ -212,12 +212,14 @@ export const getEventArray = (count) => new Array(count)
 export const getDaysTrip = (eventsList) => {
   const datesEventStart = eventsList.map((eventItem) => eventItem.time.start);
   const getUniqueDays = () => {
-    const dateToString = datesEventStart.map((dateItem) => formatDate(dateItem, `DAY`) + ` ` + formatDate(dateItem, `NAME`) + ` ` + formatDate(dateItem, `YEAR`));
-    const newArray = dateToString.reduce((accumulator, currentValue) => {
-      if (accumulator.includes(currentValue)) {
+    const makedateToString = (dateItem) => formatDate(dateItem, `DAY`) + ` ` + formatDate(dateItem, `NAME`) + ` ` + formatDate(dateItem, `YEAR`);
+    console.log(datesEventStart);
+    const newArray = datesEventStart.reduce((accumulator, currentValue) => {
+      let n = makedateToString(currentValue);
+      if (accumulator.includes(n)) {
         return accumulator;
       } else {
-        accumulator.push(currentValue);
+        accumulator.push(n);
         return accumulator;
       }
     }, []);
